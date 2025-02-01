@@ -6,26 +6,28 @@ import adidasModel3
 import {Link} from "react-router-dom";
 
 export type AdidasItem = {
+    id: number
     model: string;
     collection: string;
     price: string;
     picture: string;
+
 }
 export const adidasArr: AdidasItem[] = [
-    {
+    {   id: 1,
         model: 'ADIDAS ADIFOM TRXN',
         collection: 'new collection1',
         price: '100200$',
         picture: adidasModel1,
 
     },
-    {
+    {   id: 2,
         model: 'ADIDAS ADIFOM SUPER',
         collection: 'new collection22',
         price: '200300$',
         picture: adidasModel2
     },
-    {
+    {   id: 3,
         model: 'ADIDAS SUPER SUPERSKI',
         collection: 'new collection333',
         price: '300400$',
@@ -33,16 +35,16 @@ export const adidasArr: AdidasItem[] = [
     }
 ]
 
-export const PageOne = () => {
+export const Adidas = () => {
     return (
         <div>
             <h2 style={{textAlign: 'center'}}> ADIDAS</h2>
-            <div>
-                {adidasArr.map((adidas, index) => (
-                    <Link key={index} to={'/page1/model'}>
+            <div style={{display: 'flex', justifyContent: 'center'  }}>
+                {adidasArr.map((adidas,  index) => (
+                    <Link key={index} to={`/adidas/${adidas.id}`}>
                         <img src = {adidas.picture}
                         alt={adidas.model}
-                        style={{width: '200' , marginRight: '10px', height: 'auto'}}/>
+                        style={{width: '250px' , marginRight: '30px', height: 'auto'}}/>
                     </Link>
                 ))}
             </div>
