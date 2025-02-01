@@ -1,17 +1,41 @@
-import {adidasArr} from "./Adidas";
-import {useReducer} from "react";
+import {adidasArr, AdidasItem} from "./Adidas";
 import {useParams} from "react-router-dom";
+import {pumaArr, PumaItem} from "./Puma";
 
-export const Model = ()=> {
-    const params = useParams();
-    return (
-        <div style={{textAlign: 'center'}}>
-            <h1>{adidasArr[Number(params.id)].model}</h1>
-            <h2>{adidasArr[Number(params.id)].collection}</h2>
-            <h3>{adidasArr[Number(params.id)].price}</h3>
-            <img src={adidasArr[Number(params.id)].picture}
-            alt={adidasArr[Number(params.id)].model}
-                 style={{width: '400px' , marginBottom: '30px', height: 'auto'}}/>
-        </div>
-    )
+ type CrossModels = {
+    [key:string]: ( AdidasItem[] | PumaItem[]) }
+
+
+    const crossModels: CrossModels = {
+        adidas: adidasArr,
+        puma: pumaArr,
 }
+export const Model = () => {
+    // const params=useParams()
+
+    const {model, id} = useParams<{id: string, model: string}>()
+    const currentModel= model ? crossModels[model].find(el=>el.id===Number(id)) : null;
+
+
+    return (
+        <div style={{textAlign:'center'}}>
+            {currentModel
+                ? <>
+                    <h2>{currentModel.model}</h2>
+                    <h4>{currentModel.collection}</h4>
+                    <h3>{currentModel.price}</h3>
+                    <img
+                        src={currentModel.picture}
+                        alt={currentModel.model}
+                        style={{width: '600px', height: 'auto', marginRight: '10px'}}
+                    />
+                </>
+                :   <h2>Модель отсутствует</h2>
+            }
+
+
+
+
+        </div>
+);
+};
